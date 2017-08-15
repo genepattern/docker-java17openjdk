@@ -24,7 +24,7 @@
 
             }
         ],
-        "image": "liefeld/java7_openjdk_cli",
+        "image": "genepattern/docker-java17openjdk",
         "memory": 2000,
         "mountPoints": [],
         "ulimits": [],
