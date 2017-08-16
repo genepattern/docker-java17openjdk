@@ -12,7 +12,7 @@ DOCKER_CONTAINER=genepattern/docker-java17openjdk
 
 # aws batch only vars 
 S3_ROOT=s3://moduleiotest
-JOB_DEFINITION_NAME="Java17_Generic"
+JOB_DEFINITION_NAME="Java17_OpenJDK_Generic"
 JOB_ID=gp_job_JAVA17_openjdk_$1
 JOB_QUEUE=TedTest
 
