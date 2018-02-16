@@ -1,20 +1,20 @@
-FROM java:7u111
+# copyright 2017-2018 Regents of the University of California and the Broad Institute. All rights reserved.
+FROM java:openjdk-7-alpine 
 
-RUN apt-get update && apt-get upgrade --yes && \
-    apt-get install build-essential --yes && \
-    apt-get install python-dev --yes && \
-    wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py && \
-    python get-pip.py 
-RUN pip install awscli 
+COPY common/container_scripts/*.sh /usr/local/bin/
+
+RUN apk -v --update add \
+        bash \
+        python \
+        py-pip \
+        groff \
+        less \
+        mailcap \
+        && \
+    pip install --upgrade awscli==1.14.5 s3cmd==2.0.1 python-magic && \
+    apk -v --purge del py-pip && \
+    rm /var/cache/apk/* && \
+    chmod ugo+x /usr/local/bin/*.sh
     
-RUN mkdir /build
-COPY Dockerfile /build/Dockerfile
-
-COPY common/container_scripts/runS3OnBatch.sh /usr/local/bin/runS3OnBatch.sh
-COPY common/container_scripts/runLocal.sh /usr/local/bin/runLocal.sh
-
-RUN chmod ugo+x /usr/local/bin/runS3OnBatch.sh
-RUN chmod ugo+x /usr/local/bin/runLocal.sh
- 
 CMD ["/usr/local/bin/runS3OnBatch.sh" ]
 
